@@ -10,29 +10,35 @@
 <body>
   <div id='app'>
     <section class='row'>
-      <div class='small-6' columns>
+      <div class='small-6 columns'>
         <h1 class='text-center'>YOU</h1>
         <div class='healthbar'>
-          <div class='healthbar text-center' :style="{width: playerHealth + '%'}">
+          <div 
+            class='healthbar text-center' 
+            :style="{width: playerHealth + '%'}"
+            style='background-color: green; margin: 0; color: white;'>
             {{ playerHealth }}
           </div>
         </div>
       </div>
-      <div class='small-6' columns>
+      <div class='small-6 columns'>
         <h1 class='text-center'>HIDEOUS MONSTER</h1>
         <div class='healthbar'>
-          <div class='healthbar text-center' :style="{width: monsterHealth + '%'}">
+          <div 
+            class='healthbar text-center' 
+            :style="{width: monsterHealth + '%'}"
+            style='background-color: red; margin: 0; color: white;'>
             {{ monsterHealth }}
           </div>
         </div>
       </div>
     </section>
-    <section class='row controls'>
+    <section class='row controls' v-if='!gameIsRunning'>
       <div class='small-12 columns'>
-        <button id='start-game'>LET'S FIGHT DUDE</button>
+        <button id='start-game' @click='startGame'>LET'S FIGHT DUDE</button>
       </div>
     </section>
-    <section class='row controls'>
+    <section class='row controls' v-else>
       <div class='small-12 columns'>
         <button id='attack'>ATTACK</button>
         <button id='special-attack'>SPECIAL FUCKING ATTACK</button>
