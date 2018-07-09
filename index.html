@@ -40,10 +40,10 @@
     </section>
     <section class='row controls' v-else>
       <div class='small-12 columns'>
-        <button id='attack'>ATTACK</button>
-        <button id='special-attack'>SPECIAL FUCKING ATTACK</button>
-        <button id='heal'>NEED LIFE</button>
-        <button id='give-up'>GIVE UP LOOSER</button>
+        <button id='attack' @click='attack'>ATTACK</button>
+        <button id='special-attack' @click='specialAttack'>SPECIAL FUCKING ATTACK</button>
+        <button id='heal' @click='heal'>NEED LIFE</button>
+        <button id='give-up' @click='giveUp'>GIVE UP LOOSER</button>
       </div>
     </section>
     <section class='row log'>

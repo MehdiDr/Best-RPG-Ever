@@ -8,8 +8,39 @@ new Vue({
   methods: {
     startGame: function() {
       this.gameIsRunning = true;
-      monsterHealth = 100;
-      playerHealth = 100;
+      this.monsterHealth = 100;
+      this.playerHealth = 100;
+    },
+    attack: function() {
+      this.monsterHealth -= this.calculateDamage(3, 10);
+      if(this.checkWin()) {
+        return;
+      };
+
+      this.playerHealth -= this.calculateDamage(5, 12);
+      this.checkWin();
+    },
+    specialAttack: function() {
+
+    },
+    heal: function() {
+
+    },
+    giveUp: function() {
+
+    }, 
+    calculateDamage: function(min, max) {
+      return Math.max(Math.floor(Math.random() * max) + 1, min)
+    },
+    checkWin: function() {
+      if(this.monsterHealth <= 0) {
+        confirm('You won ! Replay?') ? this.startGame() : this.gameIsRunning = false;
+        return true;
+      } else if(this.playerHealth <= 0) {
+        confirm('You lost ! Replay?') ? this.startGame() : this.gameIsRunning = false;
+        return true;
+      }
+      return false;
     }
   }
 })
