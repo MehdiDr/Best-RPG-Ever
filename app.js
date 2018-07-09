@@ -11,31 +11,41 @@ new Vue({
       this.gameIsRunning = true;
       this.monsterHealth = 100;
       this.playerHealth = 100;
+      this.turns = []; 
     },
     attack: function() {
       let damage = this.calculateDamage(3, 10);
+      this.monsterAttack();
       this.monsterHealth -= damage;
+      if(this.checkWin()) {
+        return;
+      };
+
       this.turns.unshift({
         isPlayer: true,
         text: `Player hits for ${damage}` 
       })
-      if(this.checkWin()) {
-        return;
-      };
-
-      this.monsterAttack();
     },
     specialAttack: function() {
-      this.monsterHealth -= this.calculateDamage(10, 20);
+      let damage = this.calculateDamage(10, 20);
+      this.monsterHealth -= damage;
+      this.monsterAttack();
       if(this.checkWin()) {
         return;
       };
 
-      this.monsterAttack();
+      this.turns.unshift({
+        isPlayer: true,
+        text: `Player hits for ${damage}` 
+      })
     },
     heal: function() {
       this.playerHealth <= 90 ? this.playerHealth += 10 : this.playerHealth = 100;
       this.monsterAttack();
+       this.turns.unshift({
+         isPlayer: true,
+         text: 'Player heal himself for 10'
+       })
     },
     giveUp: function() {
       alert('RLY??? YOU DISAPPOINT ME');

@@ -4,6 +4,7 @@
   <script src="https://npmcdn.com/vue/dist/vue.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
   <link rel="stylesheet" href="style.css">
   <title>Best RPG Ever (isn't it?)</title>
 </head>
@@ -49,7 +50,9 @@
     <section class='row log' v-if='turns.length > 0'>
       <div class='small-12 columns'>
         <ul>
-          <li v-for='turn in turns'>
+          <li 
+          v-for='turn in turns' 
+          :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
             {{ turn.text }}
           </li>
         </ul>
