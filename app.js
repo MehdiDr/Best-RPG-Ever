@@ -7,39 +7,40 @@ new Vue({
     turns: []
   },
   methods: {
-    startGame: function() {
+    startGame() {
       this.gameIsRunning = true;
       this.monsterHealth = 100;
       this.playerHealth = 100;
       this.turns = []; 
     },
-    attack: function() {
+    attack() {
       let damage = this.calculateDamage(3, 10);
       this.monsterAttack();
       this.monsterHealth -= damage;
-      if(this.checkWin()) {
-        return;
-      };
+      this.checkWin();
 
       this.turns.unshift({
         isPlayer: true,
         text: `Player hits for ${damage}` 
       })
     },
-    specialAttack: function() {
+    specialAttack() {
       let damage = this.calculateDamage(10, 20);
+      if(this.turns.length > 2) {
+        damage = this.calculateDamage(1, 2);
+        alert("You're exhausted, it's useless now !")
+      } 
       this.monsterHealth -= damage;
       this.monsterAttack();
-      if(this.checkWin()) {
-        return;
-      };
+      this.checkWin();
 
       this.turns.unshift({
         isPlayer: true,
         text: `Player hits for ${damage}` 
       })
+      console.log(damage)
     },
-    heal: function() {
+    heal() {
       this.playerHealth <= 90 ? this.playerHealth += 10 : this.playerHealth = 100;
       this.monsterAttack();
        this.turns.unshift({
@@ -47,14 +48,14 @@ new Vue({
          text: 'Player heal himself for 10'
        })
     },
-    giveUp: function() {
+    giveUp() {
       alert('RLY??? YOU DISAPPOINT ME');
       this.gameIsRunning = false;
     }, 
-    calculateDamage: function(min, max) {
+    calculateDamage(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
     },
-    monsterAttack: function() {
+    monsterAttack() {
       let damage = this.calculateDamage(5, 12);
       this.turns.unshift({
         isPlayer: false,
@@ -63,7 +64,7 @@ new Vue({
       this.playerHealth -= damage;
       this.checkWin();
     },
-    checkWin: function() {
+    checkWin() {
       if(this.monsterHealth <= 0) {
         confirm('You won ! Replay?') ? this.startGame() : this.gameIsRunning = false;
         return true;
