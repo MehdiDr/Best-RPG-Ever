@@ -11,14 +11,14 @@ new Vue({
       this.gameIsRunning = true;
       this.monsterHealth = 100;
       this.playerHealth = 100;
-      this.turns = []; 
+      this.turns = [];
     },
     attack() {
       let damage = this.calculateDamage(3, 10);
       this.monsterAttack();
       this.monsterHealth -= damage;
       this.checkWin();
-
+      
       this.turns.unshift({
         isPlayer: true,
         text: `Player hits for ${damage}` 
@@ -33,20 +33,19 @@ new Vue({
       this.monsterHealth -= damage;
       this.monsterAttack();
       this.checkWin();
-
+      
       this.turns.unshift({
         isPlayer: true,
         text: `Player hits for ${damage}` 
       })
-      console.log(damage)
     },
     heal() {
       this.playerHealth <= 90 ? this.playerHealth += 10 : this.playerHealth = 100;
       this.monsterAttack();
-       this.turns.unshift({
-         isPlayer: true,
-         text: 'Player heal himself for 10'
-       })
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player heal himself for 10'
+      })
     },
     giveUp() {
       alert('RLY??? YOU DISAPPOINT ME');
@@ -66,10 +65,10 @@ new Vue({
     },
     checkWin() {
       if(this.monsterHealth <= 0) {
-        confirm('You won ! Replay?') ? this.startGame() : this.gameIsRunning = false;
+        confirm('You won ! Replay?') ? this.startGame() : !this.gameIsRunning;
         return true;
       } else if(this.playerHealth <= 0) {
-        confirm('You lost ! Replay?') ? this.startGame() : this.gameIsRunning = false;
+        confirm('You lost ! Replay?') ? this.startGame() : !this.gameIsRunning;
         return true;
       }
       return false;
